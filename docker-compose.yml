@@ -1,20 +1,26 @@
-version: '3.8'
+version: '3'
 
 services:
-  # Serwis 1: Nginx (port 8080)
+  # Twój Backend (odpowiednik 'mysql-db' u nauczyciela )
+  pogoda-api:
+    build: ./backend
+    container_name: website_backend
+    ports:
+      - "8081:5000"
+    networks:
+      - my-network
+
+  # Twój Frontend (odpowiednik 'spring-boot-app'a)
   moj-nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: website_nginx
+    build: ./frontend
+    container_name: website_frontend
     ports:
       - "8080:80"
+    depends_on:
+      - pogoda-api  # Frontend uruchomi się po Backendzie
+    networks:
+      - my-network
 
-  # Serwis 2: Apache (port 8081)
-  moj-apache:
-    build:
-      context: .
-      dockerfile: Dockerfile.apache
-    container_name: website_apache
-    ports:
-      - "8081:80"
+# Definicja sieci 
+networks:
+  my-network:
