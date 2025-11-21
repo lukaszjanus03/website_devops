@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Serwis 1: Nginx (port 8080)
+  moj-nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: website_nginx
+    ports:
+      - "8080:80"
+
+  # Serwis 2: Apache (port 8081)
+  moj-apache:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache
+    container_name: website_apache
+    ports:
+      - "8081:80"

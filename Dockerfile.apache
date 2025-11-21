@@ -1,0 +1,5 @@
+# Używamy oficjalnego obrazu Apache (httpd)
+FROM httpd:2.4
+
+# Kopiujemy Twój index.html do domyślnego katalogu Apache
+COPY index.html /usr/local/apache2/htdocs/index.html
