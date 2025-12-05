@@ -1,0 +1,22 @@
+name: Docker Build Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    # To jest kluczowe: budujemy uzywajac Twojego pliku docker-compose
+    # Dzieki temu sprawdzamy I frontend I backend naraz
+    - name: Build with Docker Compose
+      run: docker compose build
