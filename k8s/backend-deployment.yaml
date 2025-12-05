@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pogoda-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pogoda-backend
+  template:
+    metadata:
+      labels:
+        app: pogoda-backend
+    spec:
+      # --- POPRAWKA: Te linie muszą być tutaj (poziom spec), a nie w containers ---
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+      # --------------------------------------------------------------------------
+      containers:
+      - name: backend
+        image: moj-backend:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
